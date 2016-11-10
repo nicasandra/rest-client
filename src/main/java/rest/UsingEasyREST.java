@@ -33,9 +33,9 @@ public class UsingEasyREST implements CommentWebServiceClient {
         ResteasyWebTarget webTarget = client.target("http://localhost:8080/rest/comment/");
         Response resp = webTarget.request().post(Entity.entity(comment, "application/json"));
         if (resp.getStatus() == 201) {
+            resp.close();
             return comment;
         }
-        resp.close();
         return null;
 
     }
@@ -45,9 +45,10 @@ public class UsingEasyREST implements CommentWebServiceClient {
         Response resp = webTarget.request().put(Entity.entity(comment, "application/json"));
 
         if (resp.getStatus() == 204) {
+            resp.close();
             return comment;
         }
-        resp.close();
+
         return null;
     }
 

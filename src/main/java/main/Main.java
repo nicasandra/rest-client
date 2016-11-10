@@ -2,11 +2,12 @@ package main;
 
 import model.Comment;
 import rest.CommentWebServiceClient;
-import rest.LinkParser;
 import rest.UsingEasyREST;
 import rest.UsingRestTemplate;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by fstancu on 11/9/2016.
@@ -16,58 +17,58 @@ public class Main {
 
     public static void main(String[] args) {
 
-//        model.Comment commentToBeSaved = new model.Comment("Florin", "stancu.florin23@gmail.com", "test from java", new Date());
+//        Comment commentToBeSaved = new Comment("Florin", "stancu.florin23@gmail.com", "test from java", new Date());
 //
-//        rest.CommentWebServiceClient service = new rest.UsingRestTemplate();
+//        CommentWebServiceClient restTemplate = new UsingRestTemplate();
 //
-//        model.Comment commentSaved = service.save(commentToBeSaved);
-//        commentSaved.setName("Andrei");
-//        service.update(commentSaved);
-//
+//        System.out.println(">>>Saved object:");
+//        Comment commentSaved = restTemplate.save(commentToBeSaved);
 //        System.out.println(commentSaved);
 //
-//        model.Comment commentWithId4 = service.findById(1l);
+//        commentSaved.setName("Andrei");
+//        System.out.println(">>>Updated object:");
+//        System.out.println(restTemplate.update(commentSaved));
 //
-//        System.out.println(commentWithId4);
+//        System.out.println(">>>Find by id:");
+//        System.out.println(restTemplate.findById(2l));
 //
-//        service.delete(7L);
+//        //Delete object
+////        restTemplate.delete(1L);
 //
-//        System.out.println("list--------------");
-//
-//        List<model.Comment> commentList = new ArrayList<model.Comment>();
-//        commentList = service.findAll();
+//        System.out.println(">>>List--------------");
+//        List<model.Comment> commentList = restTemplate.findAll();
 //        for (model.Comment c : commentList) {
 //            System.out.println(c);
 //        }
 
 
-        /////////////////////////
+        /*
+        EasyREST
+         */
 
-        CommentWebServiceClient client1 = new UsingRestTemplate();
-        CommentWebServiceClient client2 = new UsingEasyREST();
-        //  Comment c = client.findById(2L);
+        CommentWebServiceClient easyREST = new UsingEasyREST();
 
-        Comment c1 = new Comment("Handrei", "sdfsd@gmail.com", "comm", new Date());
-        // c1.setId(3L);
-        // System.out.println(client.update(c1));
-        System.out.println(client1.save(c1));
-        System.out.println(client1.findById(1L));
+        Comment c1 = new Comment("Vladut", "sdfsd@gmail.com", "comm", new Date());
+        System.out.println("\n\n>>>Saved object:");
+        System.out.println(easyREST.save(c1));
 
-        // System.out.println(LinkParser.findId(3L));
+        c1.setName("Marcel");
+        c1.setId(1L);
+        System.out.println(">>>Updated object:");
+        System.out.println(easyREST.update(c1));
 
-//        List<Comment> commentList = new ArrayList<Comment>();
-//        commentList = client.findAll();
-//        for (model.Comment c : commentList) {
-//            System.out.println(c);
-//        }
+        System.out.println(">>>Find by id:");
+        System.out.println(easyREST.findById(1L));
 
-        //    client.delete(6L);
-        //    client.delete(7L);
-        //  client.delete(10L);
-        //   LinkParser l = new LinkParser();
-        //   System.out.println(l.findById(2L).toString());
+        //Delete object
+ //       easyREST.delete(2L);
 
-        //    System.out.println(client.findById(2L).get_links().getSelf().getHref());
+
+        System.out.println(">>>List-----------");
+        List<Comment> comments = easyREST.findAll();
+        for (Comment c : comments) {
+            System.out.println(c);
+        }
     }
 
 }

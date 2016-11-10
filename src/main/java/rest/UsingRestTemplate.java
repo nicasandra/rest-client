@@ -39,7 +39,7 @@ public class UsingRestTemplate implements CommentWebServiceClient {
      */
     public Comment save(Comment comment) {
         Comment c = restTemplate.postForObject("http://localhost:8080/rest/comment", comment, Comment.class);
-        return LinkParser.findId(c);
+        return LinkParser.setId(c);
     }
 
     public Comment update(Comment comment) {
@@ -57,12 +57,12 @@ public class UsingRestTemplate implements CommentWebServiceClient {
     public Comment findById(Long commentId) {
         RestTemplate restTemplate = new RestTemplate();
         Comment c = restTemplate.getForObject("http://localhost:8080/rest/comment/" + commentId, Comment.class);
-        return LinkParser.findId(c);
+        return LinkParser.setId(c);
     }
 
     public List<Comment> findAll() {
         Root embedded = restTemplate.getForObject("http://localhost:8080/rest/comment/", Root.class);
-        return embedded.get_embedded().getComment();
+        return LinkParser.setIdList(embedded.get_embedded().getComment());
     }
 
     public void delete(Long commentId) {
